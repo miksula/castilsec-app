@@ -7,7 +7,7 @@ import { withRouter } from "@/lib/mixins/withRouter.ts";
 import { withStore } from "@/lib/mixins/withStore.ts";
 import { prepareHooks } from "@/state/hooks.ts";
 
-import { Dashboard, NotFound, Task, Tasks, Test } from "@/routes/index.ts";
+import { Dashboard, NotFound, Tasks } from "@/routes/index.ts";
 import Layout from "./layout.ts";
 
 export class MainApp extends withRouter(withStore(noShadow(LitElement))) {
@@ -23,13 +23,6 @@ export class MainApp extends withRouter(withStore(noShadow(LitElement))) {
       })
       .add("/tasks", () => {
         this.page = Tasks(this.state.tasks);
-      })
-      .add("/tasks/:id", (c) => {
-        const id = c.params.id;
-        this.page = Task(id);
-      })
-      .add("/test", () => {
-        this.page = Test();
       })
       .add("/*", () => {
         this.page = NotFound(this.router.path);
