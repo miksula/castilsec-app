@@ -1,0 +1,10 @@
+{
+  "tasks": {
+    "lint": "deno lint",
+    "format": "deno fmt",
+    "backend:start": "cd apps/backend && bash start.sh",
+    "backend:stop": "cd apps/backend && bash stop.sh",
+    "ui:start": "deno task --cwd=apps/ui dev",
+    "dev": "deno task backend:start & deno task ui:start"
+  }
+}

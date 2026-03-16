@@ -1,0 +1,13 @@
+// .code-workspace file
+{
+  "folders": [
+    {
+      "path": "."
+    }
+  ],
+  "settings": {
+    "editor.tabSize": 2,
+    "editor.minimap.enabled": false,
+    "editor.formatOnSave": true
+  }
+}

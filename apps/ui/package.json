@@ -1,0 +1,27 @@
+{
+  "name": "ui",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite"
+  },
+  "dependencies": {
+    "@app/router": "workspace:^",
+    "@journeyapps/wa-sqlite": "^1.5.0",
+    "@lit/context": "^1.1.6",
+    "@powersync/kysely-driver": "^1.3.3",
+    "@powersync/web": "^1.36.0",
+    "@supabase/supabase-js": "^2.99.1",
+    "@tailwindplus/elements": "^1.0.22",
+    "lit": "^3.3.2",
+    "tailwindcss": "^4.2.1"
+  },
+  "devDependencies": {
+    "@tailwindcss/vite": "^4.2.1",
+    "vite": "^7.3.1",
+    "vite-plugin-devtools-json": "^1.0.0",
+    "vite-plugin-wasm": "^3.5.0",
+    "vite-tsconfig-paths": "^6.1.1"
+  }
+}

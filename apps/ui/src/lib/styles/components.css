@@ -1,0 +1,17 @@
+@layer components {
+    h1 {
+        font: var(--heading1);
+    }
+
+    h2 {
+        font: var(--heading2);
+    }
+
+    .label {
+        font: var(--label);
+    }
+
+    .slug {
+        font: var(--slug);
+    }
+}

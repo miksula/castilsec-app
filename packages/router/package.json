@@ -1,0 +1,10 @@
+{
+  "name": "@app/router",
+  "type": "module",
+  "version": "1.0.0",
+  "main": "./router.ts",
+  "description": "A lightweight, TypeScript-based client-side router for single-page applications (SPAs). This router provides essential routing functionality with support for regular expression-based route matching, programmatic navigation, and browser history management.",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  }
+}

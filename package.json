@@ -1,0 +1,9 @@
+{
+  "name": "castilsec-app",
+  "version": "1.0.0",
+  "license": "UNLICENSED",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ]
+}
