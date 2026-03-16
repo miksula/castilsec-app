@@ -6,7 +6,8 @@ import {
   WASQLiteOpenFactory,
   WASQLiteVFS,
 } from "@powersync/web";
-import { AppSchema } from "@/schema.ts";
+import { wrapPowerSyncWithKysely } from "@powersync/kysely-driver";
+import { AppSchema, Database } from "@/schema.ts";
 import { SupabaseConnector } from "@/services/db/connector.ts";
 
 const logger = createBaseLogger();
@@ -44,7 +45,7 @@ logger.setLevel(LogLevel.DEBUG);
  *
  * 📚 Learn more: https://docs.powersync.com/client-sdk-references/javascript-web#sqlite-virtual-file-systems
  */
-export const db = new PowerSyncDatabase({
+export const powersync = new PowerSyncDatabase({
   database: new WASQLiteOpenFactory({
     dbFilename: "castilsec-app.db",
     vfs: WASQLiteVFS.OPFSCoopSyncVFS, // Use AccessHandlePoolVFS for single-tab only
@@ -61,8 +62,10 @@ export const db = new PowerSyncDatabase({
 });
 
 // Establish connection between PowerSync and the Supabase connector
-db.connect(new SupabaseConnector(), {
+powersync.connect(new SupabaseConnector(), {
   // Rust based implementation is more efficient and faster than the JavaScript implementation
   clientImplementation: SyncClientImplementation.RUST,
   crudUploadThrottleMs: 5000,
 });
+
+export const db = wrapPowerSyncWithKysely<Database>(powersync);
