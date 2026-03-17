@@ -2,15 +2,15 @@ import {
   AbstractPowerSyncDatabase,
   BaseObserver,
   CrudEntry,
-  UpdateType,
   type PowerSyncBackendConnector,
+  UpdateType,
 } from "@powersync/web";
 
 import {
-  SupabaseClient,
   createClient,
   type PostgrestSingleResponse,
   type Session,
+  SupabaseClient,
 } from "@supabase/supabase-js";
 
 export type SupabaseConfig = {
@@ -36,8 +36,7 @@ export type SupabaseConnectorListener = {
   sessionStarted: (session: Session) => void;
 };
 
-export class SupabaseConnector
-  extends BaseObserver<SupabaseConnectorListener>
+export class SupabaseConnector extends BaseObserver<SupabaseConnectorListener>
   implements PowerSyncBackendConnector {
   readonly client: SupabaseClient;
   readonly config: SupabaseConfig;
@@ -61,7 +60,7 @@ export class SupabaseConnector
           autoRefreshToken: true,
           detectSessionInUrl: true,
         },
-      }
+      },
     );
     this.currentSession = null;
   }
@@ -89,7 +88,7 @@ export class SupabaseConnector
   async signInAnonymously(): Promise<Session> {
     const {
       data: { session },
-      error: sessionError
+      error: sessionError,
     } = await this.client.auth.getSession();
 
     if (sessionError) {
@@ -103,7 +102,7 @@ export class SupabaseConnector
 
     const {
       data: { session: anonymousSession },
-      error
+      error,
     } = await this.client.auth.signInAnonymously();
 
     if (error) {
@@ -134,7 +133,7 @@ export class SupabaseConnector
   async fetchCredentials() {
     const session = await this.signInAnonymously();
 
-    console.debug('session expires at', session.expires_at);
+    console.debug("session expires at", session.expires_at);
 
     return {
       endpoint: this.config.powersyncUrl,
@@ -171,7 +170,8 @@ export class SupabaseConnector
 
         if (result.error) {
           console.error(result.error);
-          result.error.message = `Could not update Supabase. Received error: ${result.error.message}`;
+          result.error.message =
+            `Could not update Supabase. Received error: ${result.error.message}`;
           throw result.error;
         }
       }
@@ -202,5 +202,3 @@ export class SupabaseConnector
     }
   }
 }
-
-// export const connector = new SupabaseConnector();

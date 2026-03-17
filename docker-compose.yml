@@ -1,0 +1,18 @@
+services:
+  # api is built from the existing Dockerfile (which builds the UI and runs the Deno API on port 8001)
+  api:
+    build: .
+    expose:
+      - "8001"
+
+  # frontend mounts build directory ./dist to /srv (the path Caddy serves from inside the container) 
+  # and Caddyfile to the standard Caddy config location.
+  frontend:
+    image: caddy:alpine
+    ports:
+      - "8081:80"
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile
+      - ./dist:/srv
+    depends_on:
+      - api

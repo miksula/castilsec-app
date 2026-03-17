@@ -8,6 +8,10 @@ const projects = ["./deno.json"];
 
 // https://vite.dev/config/
 export default defineConfig({
+  build: {
+    outDir: "../../dist",
+    emptyOutDir: true,
+  },
   plugins: [wasm(), devtoolsJson(), tsconfigPaths({ projects }), tailwindcss()],
   worker: {
     format: "es",
