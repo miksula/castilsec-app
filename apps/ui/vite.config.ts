@@ -22,4 +22,9 @@ export default defineConfig({
     exclude: ["@journeyapps/wa-sqlite", "@powersync/web"],
     include: [],
   },
+  server: {
+    proxy: {
+      "/api": "http://localhost:8001",
+    },
+  },
 });

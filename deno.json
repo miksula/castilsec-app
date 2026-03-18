@@ -4,9 +4,9 @@
     "format": "deno fmt",
     "build": "deno task --cwd=apps/ui build",
     "dev": "deno task backend:start & deno task ui:start",
-    "backend:start": "cd apps/backend && bash start.sh",
-    "backend:stop": "cd apps/backend && bash stop.sh",
+    "backend:start": "cd backend/ && bash start.sh",
+    "backend:stop": "cd backend/ && bash stop.sh",
     "ui:start": "deno task --cwd=apps/ui dev",
-    "schema:generate": "cd apps/backend && powersync generate schema --output-path=../ui/src/schema.ts --output=ts"
+    "schema:generate": "cd backend/ && powersync generate schema --output-path=../apps/ui/src/schema.ts --output=ts"
   }
 }
