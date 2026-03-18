@@ -3,6 +3,7 @@
     "lint": "deno lint",
     "format": "deno fmt",
     "build": "deno task --cwd=apps/ui build",
+    "preview": "deno task --cwd=apps/ui preview",
     "dev": "deno task backend:start & deno task ui:start",
     "backend:start": "cd backend/ && bash start.sh",
     "backend:stop": "cd backend/ && bash stop.sh",

@@ -9,7 +9,6 @@
     "npm:@tailwindcss/vite@^4.2.1": "4.2.1_vite@7.3.1",
     "npm:@tailwindplus/elements@^1.0.22": "1.0.22",
     "npm:lit@^3.3.2": "3.3.2",
-    "npm:supabase@^2.81.3": "2.81.3",
     "npm:tailwindcss@^4.2.1": "4.2.1",
     "npm:vite-plugin-devtools-json@1": "1.0.0_vite@7.3.1",
     "npm:vite-plugin-wasm@^3.5.0": "3.6.0_vite@7.3.1",
@@ -950,11 +949,6 @@
     }
   },
   "workspace": {
-    "packageJson": {
-      "dependencies": [
-        "npm:supabase@^2.81.3"
-      ]
-    },
     "members": {
       "apps/ui": {
         "packageJson": {
