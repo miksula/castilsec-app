@@ -1,9 +1,0 @@
-:80 {
-	root * /srv
-
-	encode gzip
-
-	reverse_proxy /api/* api:8001
-
-	file_server
-}
