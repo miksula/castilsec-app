@@ -7,6 +7,7 @@
     "dev": "deno task backend:start & deno task ui:start",
     "backend:start": "cd backend/ && bash start.sh",
     "backend:stop": "cd backend/ && bash stop.sh",
+    "api:start": "deno run --allow-net --allow-read apps/api/index.ts",
     "ui:start": "deno task --cwd=apps/ui dev",
     "schema:generate": "cd backend/ && powersync generate schema --output-path=../apps/ui/src/schema.ts --output=ts"
   },
