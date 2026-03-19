@@ -9,5 +9,8 @@
     "backend:stop": "cd backend/ && bash stop.sh",
     "ui:start": "deno task --cwd=apps/ui dev",
     "schema:generate": "cd backend/ && powersync generate schema --output-path=../apps/ui/src/schema.ts --output=ts"
+  },
+  "imports": {
+    "@std/http": "jsr:@std/http@^1.0.25"
   }
 }
