@@ -4,7 +4,7 @@
     "format": "deno fmt",
     "build": "deno task --cwd=apps/ui build",
     "preview": "deno task --cwd=apps/ui preview",
-    "dev": "deno task backend:start & deno task ui:start",
+    "dev": "sh dev.sh",
     "backend:start": "cd backend/ && bash start.sh",
     "backend:stop": "cd backend/ && bash stop.sh",
     "api:start": "deno run --allow-net --allow-read apps/api/index.ts",
