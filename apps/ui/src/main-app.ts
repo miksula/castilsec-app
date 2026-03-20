@@ -7,7 +7,7 @@ import { withRouter } from "@/lib/mixins/withRouter.ts";
 import { withStore } from "@/lib/mixins/withStore.ts";
 import { prepareHooks } from "@/state/hooks.ts";
 
-import { Dashboard, NotFound, Tasks } from "@/routes/index.ts";
+import { Dashboard, Login, NotFound } from "@/routes/index.ts";
 import Layout from "./layout.ts";
 
 export class MainApp extends withRouter(withStore(noShadow(LitElement))) {
@@ -21,8 +21,8 @@ export class MainApp extends withRouter(withStore(noShadow(LitElement))) {
       .add("/", () => {
         this.page = Dashboard(this.state);
       })
-      .add("/tasks", () => {
-        this.page = Tasks(this.state.tasks);
+      .add("/login", () => {
+        this.page = Login();
       })
       .add("/*", () => {
         this.page = NotFound(this.router.path);

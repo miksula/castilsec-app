@@ -32,14 +32,14 @@ class NavLink extends useRouter(noShadow(LitElement)) {
       <li
         @click="${this
           .handleClick}"
-        class="group transition-[background-color] cursor-pointer mx-2 px-4 py-2 rounded-full hover:bg-stone-200 [&.active]:bg-brand-blue-light ${classMap(
+        class="group mx-4 transition-[background-color] cursor-pointer ${classMap(
           {
             "active": !!this.active,
           },
         )}"
       >
         <a
-          class="text-zinc-700 font-medium text-base group-[.active]:text-brand-blue"
+          class="text-zinc-700"
           href="${this.to}"
         >${this.text}</a>
       </li>

@@ -1,3 +1,13 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
-  <path d="M 30 20 A 30 30 0 0 0 30 80 A 30 30 0 0 0 60 75" stroke="#646cff" stroke-width="8" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  <!-- Shield — security -->
+  <path d="M50 8 L84 22 L84 53 C84 73 50 92 50 92 C50 92 16 73 16 53 L16 22 Z"
+        fill="#eef0ff" stroke="#646cff" stroke-width="4.5" stroke-linejoin="round"/>
+  <!-- Castle battlements: 3 merlons — castil -->
+  <rect x="33" y="33" width="8" height="12" fill="#646cff" rx="1"/>
+  <rect x="46" y="33" width="8" height="12" fill="#646cff" rx="1"/>
+  <rect x="59" y="33" width="8" height="12" fill="#646cff" rx="1"/>
+  <!-- Tower body -->
+  <rect x="33" y="44" width="34" height="20" fill="#646cff"/>
+  <!-- Arched gateway -->
+  <path d="M43 64 L43 58 Q50 48 57 58 L57 64 Z" fill="#eef0ff"/>
 </svg>
