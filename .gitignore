@@ -2,3 +2,4 @@ node_modules
 dist
 .branches
 .temp
+*.code-workspace
