@@ -1,25 +1,41 @@
 import { db, powersync } from "./client.ts";
 
-// Maps task rows from the database to the TodoItem type
-const mapTask = (row: Record<string, unknown>) => {
-  const id = String(row.id);
-  const text = String(row.text ?? "");
-  const completed = (row.completed ?? 0) === 1 ? 1 : 0 as 0 | 1;
-  const created_at = new Date(row.created_at as string);
-
+function mapTodoListRow(row: Record<string, unknown>): unknown {
   return {
-    id,
-    text,
-    completed,
-    created_at,
+    listId: row["list_id"] as string,
+    listName: row["list_name"] as string,
+    listOwnerId: row["list_owner_id"] as string,
+    listCreatedAt: row["list_created_at"] as Date,
+    todoId: row["todo_id"] as string | null,
+    todoDescription: row["todo_description"] as string | null,
+    todoCompleted: row["todo_completed"] as boolean | null,
+    todoCreatedAt: row["todo_created_at"] as Date | null,
+    todoCompletedAt: row["todo_completed_at"] as Date | null,
+    todoCreatedBy: row["todo_created_by"] as string | null,
+    todoCompletedBy: row["todo_completed_by"] as string | null,
   };
-};
+}
 
-export function watchTasks() {
+export function watchTaskLists() {
   return powersync.query({
-    sql:
-      `SELECT id, text, completed, created_at FROM tasks ORDER BY created_at ASC`,
-    mapper: mapTask,
+    sql: `
+      SELECT
+        lists.id AS list_id,
+        lists.created_at AS list_created_at,
+        lists.name AS list_name,
+        lists.owner_id AS list_owner_id,
+        todos.id AS todo_id,
+        todos.created_at AS todo_created_at,
+        todos.completed_at AS todo_completed_at,
+        todos.description AS todo_description,
+        todos.completed AS todo_completed,
+        todos.created_by AS todo_created_by,
+        todos.completed_by AS todo_completed_by
+      FROM lists
+      LEFT JOIN todos ON todos.list_id = lists.id
+      ORDER BY lists.created_at ASC, todos.created_at ASC
+    `,
+    mapper: mapTodoListRow,
   }).watch({
     placeholderData: [],
   });

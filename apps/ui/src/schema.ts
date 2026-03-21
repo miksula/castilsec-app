@@ -1,19 +1,33 @@
 import { column, Schema, Table } from '@powersync/web';
 // OR: import { column, Schema, Table } from '@powersync/react-native';
 
-const tasks = new Table(
+const lists = new Table(
   {
     // id column (text) is automatically included
-    text: column.text,
-    completed: column.integer,
     created_at: column.text,
-    updated_at: column.text
+    name: column.text,
+    owner_id: column.text
+  },
+  { indexes: {} }
+);
+
+const todos = new Table(
+  {
+    // id column (text) is automatically included
+    created_at: column.text,
+    completed_at: column.text,
+    description: column.text,
+    completed: column.integer,
+    created_by: column.text,
+    completed_by: column.text,
+    list_id: column.text
   },
   { indexes: {} }
 );
 
 export const AppSchema = new Schema({
-  tasks
+  lists,
+  todos
 });
 
 export type Database = (typeof AppSchema)['types'];

@@ -3,11 +3,11 @@ import { EVENT_ACTION, EVENT_DATA, EVENT_LOAD } from "@/lib/constants.ts";
 import { Action } from "@/lib/types.ts";
 
 export interface State {
-  tasks: typeof tasksStore.state;
+  taskLists: typeof tasksStore.state;
 }
 
 const initialState = {
-  tasks: tasksStore.state,
+  taskLists: tasksStore.state,
 };
 
 export default function RootStore() {
@@ -21,7 +21,7 @@ export default function RootStore() {
   });
 
   function updateState(_action?: string) {
-    appState.tasks = tasksStore.getState();
+    appState.taskLists = tasksStore.getState();
     notify();
   }
 
@@ -41,7 +41,7 @@ export default function RootStore() {
       return appState;
     },
 
-    /** Reference to tasks store */
-    tasks: tasksStore,
+    /** Reference to task list store */
+    taskLists: tasksStore,
   };
 }

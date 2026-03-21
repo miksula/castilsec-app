@@ -1,90 +1,67 @@
-import type { Filter, TodoItem } from "@/lib/types.ts";
+import type { Todo, TodoList } from "@/lib/types.ts";
 import { action } from "@/state/action.ts";
 import * as queries from "@/services/db/queries.ts";
-import * as storage from "@/services/db/storage.ts";
+import type { TodoListRow } from "@/services/db/queries.ts";
 
-export type Tasks = {
-  items: TodoItem[];
-  filter: Filter;
-};
+const initialState: TodoList[] = [];
 
-const initialState: Tasks = {
-  items: [],
-  filter: storage.getFilter(), // defaults "all" if not set
-};
-
-class TasksStore {
-  public state: Tasks = initialState;
+class TaskListsStore {
+  public state: TodoList[] = initialState;
 
   constructor() {
-    const watchedTasks = queries.watchTasks();
+    const watchedTaskLists = queries.watchTaskLists();
 
-    watchedTasks.registerListener({
-      onData: (tasks) => {
-        console.log("Received tasks", tasks);
-        this.updateItems([...tasks]);
+    watchedTaskLists.registerListener({
+      onData: (rows) => {
+        this.updateLists(this.groupRows(rows));
       },
     });
   }
 
   getState() {
-    return {
-      items: this.state.items,
-      filter: storage.getFilter(),
-    };
+    return this.state;
   }
 
-  /**
-   * Updates the task items state for the UI.
-   * @param items - Updated task items
-   */
   @action
-  updateItems(items: TodoItem[]) {
-    this.state.items = items;
+  updateLists(lists: TodoList[]) {
+    this.state = lists;
   }
 
-  /**
-   * Sets the current filter for tasks.
-   * @param filter - The filter to set (e.g., "all", "active", "completed").
-   */
-  @action
-  setFilter(filter: Filter) {
-    storage.setFilter(filter);
-  }
+  private groupRows(rows: TodoListRow[]): TodoList[] {
+    const grouped = new Map<string, TodoList>();
 
-  /**
-   * Adds a new task to the database.
-   * @param text - The task description.
-   */
-  async add(text: string) {
-    await queries.createTask(text);
-  }
+    for (const row of rows) {
+      let list = grouped.get(row.listId);
+      if (!list) {
+        list = {
+          id: row.listId,
+          name: row.listName,
+          ownerId: row.listOwnerId,
+          createdAt: row.listCreatedAt,
+          todos: [],
+        };
+        grouped.set(row.listId, list);
+      }
 
-  /**
-   * Removes a task from the database by its ID.
-   * @param id - The ID of the task to delete.
-   */
-  async delete(id: string) {
-    await queries.deleteTask(id);
-  }
+      if (!row.todoId) {
+        continue;
+      }
 
-  /**
-   * Updates the completion status of a task.
-   * @param id - The ID of the task to update.
-   * @param completed - The new completion status (0 or 1).
-   */
-  async completed(id: string, completed: 0 | 1) {
-    await queries.updateTask(id, completed);
-  }
+      const todo: Todo = {
+        id: row.todoId,
+        description: row.todoDescription ?? "",
+        completed: row.todoCompleted,
+        createdAt: row.todoCreatedAt ?? "",
+        completedAt: row.todoCompletedAt,
+        createdBy: row.todoCreatedBy,
+        completedBy: row.todoCompletedBy,
+        listId: row.listId,
+      };
+      list.todos.push(todo);
+    }
 
-  /**
-   * Edits the text of a task.
-   * @param id - The ID of the task to edit.
-   * @param text - The new text for the task.
-   */
-  async edit(id: string, text: string) {
-    await queries.updateTask(id, undefined, text);
+    return [...grouped.values()];
   }
 }
 
-export default new TasksStore();
+export default new TaskListsStore();

@@ -2,14 +2,24 @@ import type { State } from "@/state/stores/root.ts";
 
 export type { State };
 
-export type TodoItem = {
-  id: number | string;
-  text: string;
-  completed: 0 | 1;
-  created_at: Date | string;
+export type Todo = {
+  id: string;
+  description: string;
+  completed: boolean;
+  createdAt: Date | string;
+  completedAt: Date | string | null;
+  createdBy: string | null;
+  completedBy: string | null;
+  listId: string;
 };
 
-export type Filter = "all" | "active" | "completed";
+export type TodoList = {
+  id: string;
+  name: string;
+  ownerId: string;
+  createdAt: Date | string;
+  todos: Todo[];
+};
 
 export type Action = {
   name: string;
