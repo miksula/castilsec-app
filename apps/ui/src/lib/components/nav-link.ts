@@ -36,10 +36,14 @@ class NavLink extends useRouter(noShadow(LitElement)) {
     const linkClasses = classMap({
       "font-medium transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand":
         true,
-      "inline-flex items-center rounded-md px-3 py-2 text-sm": !isMobile,
-      "block rounded-md px-3 py-2 text-base": isMobile,
-      "bg-brand-light text-brand-dark": !!this.active,
-      "text-gray-900 hover:bg-brand-100 hover:text-brand-dark": !this.active,
+      "inline-flex items-center border-b-2 px-1 pt-1 text-sm": !isMobile,
+      "block border-l-4 py-2 pr-4 pl-3 text-base": isMobile,
+      "border-brand text-gray-900": !!this.active && !isMobile,
+      "border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700":
+        !this.active && !isMobile,
+      "border-brand bg-brand-100/60 text-brand-dark": !!this.active && isMobile,
+      "border-transparent text-gray-500 hover:border-gray-300 hover:bg-gray-50 hover:text-gray-700":
+        !this.active && isMobile,
     });
 
     return html`
