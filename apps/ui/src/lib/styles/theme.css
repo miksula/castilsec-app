@@ -1,5 +1,5 @@
 @theme static {
-  --font-sans: 'Google Sans Flex', ui-sans-serif, system-ui, sans-serif;
+  --font-sans: 'Geist', ui-sans-serif, system-ui, sans-serif;
 
   /* Custom colors */
   --color-brand-100: oklch(95.5% 0.0384 234.35);
@@ -11,6 +11,10 @@
   --color-brand-700: oklch(48.115% 0.1183 243.848);
   --color-brand-800: oklch(39.57% 0.1316 245.43);
   --color-brand-900: oklch(31.025% 0.145 247.01);
+
+  --color-brand: var(--color-brand-700);
+  --color-brand-light: var(--color-brand-200);
+  --color-brand-dark: var(--color-brand-800);
 
   --color-brand-blue-dark: var(--color-brand-800);
   --color-brand-blue: var(--color-brand-700);
