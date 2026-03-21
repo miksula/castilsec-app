@@ -9,7 +9,10 @@
   --color-brand-500: oklch(65.21% 0.0916 240.68);
   --color-brand-600: oklch(56.66% 0.105 242.27);
   --color-brand-700: oklch(48.115% 0.1183 243.848);
+  --color-brand-800: oklch(39.57% 0.1316 245.43);
+  --color-brand-900: oklch(31.025% 0.145 247.01);
 
+  --color-brand-blue-dark: var(--color-brand-800);
   --color-brand-blue: var(--color-brand-700);
   --color-brand-blue-light: var(--color-brand-200);
 

@@ -7,8 +7,9 @@ import { withRouter } from "@/lib/mixins/withRouter.ts";
 import { withStore } from "@/lib/mixins/withStore.ts";
 import { prepareHooks } from "@/state/hooks.ts";
 
-import { Dashboard, Login, NotFound } from "@/routes/index.ts";
+import { Dashboard, Login, NotFound, Register } from "@/routes/index.ts";
 import Layout from "./layout.ts";
+import AuthLayout from "./routes/auth/layout.ts";
 
 export class MainApp extends withRouter(withStore(noShadow(LitElement))) {
   private page: TemplateResult | null = null;
@@ -19,10 +20,13 @@ export class MainApp extends withRouter(withStore(noShadow(LitElement))) {
 
     this.router
       .add("/", () => {
-        this.page = Dashboard(this.state);
+        this.page = Dashboard();
       })
-      .add("/login", () => {
+      .add("/auth/login", () => {
         this.page = Login();
+      })
+      .add("/auth/register", () => {
+        this.page = Register();
       })
       .add("/*", () => {
         this.page = NotFound(this.router.path);
@@ -56,6 +60,9 @@ export class MainApp extends withRouter(withStore(noShadow(LitElement))) {
   }
 
   override render() {
+    if (this.router.path.startsWith("/auth")) {
+      return AuthLayout(this.page);
+    }
     return Layout(this.page);
   }
 }

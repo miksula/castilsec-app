@@ -21,9 +21,9 @@ class AppNavigation extends useRouter(noShadow(LitElement)) {
       <nav
         class="px-8 flex items-center h-14 border-b border-b-gray-200"
       >
-        <img src="/logo.svg" alt="Castle Logo" class="w-6 h-6" />
+        <img src="/logo.svg" alt="Castle Logo" class="w-6 h-6 -mr-1" />
         <span class="mx-2 font-semibold text-gray-800 tracking-wide">castilsec</span>
-        <ul class="mx-8 p-0 flex justify-between list-none">
+        <ul class="mx-6 p-0 flex justify-between list-none">
           <nav-link text="Työpöytä" to="/" ?active="${this.activePath ==
             "/"}"></nav-link>
           <nav-link text="Kohteet" to="/kohteet" ?active="${this.activePath ==

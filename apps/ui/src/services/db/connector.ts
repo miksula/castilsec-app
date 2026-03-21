@@ -41,6 +41,8 @@ export class SupabaseConnector extends BaseObserver<SupabaseConnectorListener>
   readonly client: SupabaseClient;
   readonly config: SupabaseConfig;
 
+  ready: boolean;
+
   currentSession: Session | null;
 
   constructor() {
@@ -63,59 +65,71 @@ export class SupabaseConnector extends BaseObserver<SupabaseConnectorListener>
       },
     );
     this.currentSession = null;
+    this.ready = false;
+  }
+
+  async init() {
+    if (this.ready) {
+      return;
+    }
+
+    const sessionResponse = await this.client.auth.getSession();
+    this.updateSession(sessionResponse.data.session);
+
+    this.ready = true;
+    this.iterateListeners((cb) => cb.initialized?.());
   }
 
   /**
    * We suggest you use the following function if you want to support login via username and password.
-   * Note: this app is currently authenticating using an anonymous login.
    */
-  // async login(username: string, password: string) {
-  //   const {
-  //     data: { session },
-  //     error
-  //   } = await this.client.auth.signInWithPassword({
-  //     email: username,
-  //     password: password
-  //   });
-
-  //   if (error) {
-  //     throw error;
-  //   }
-
-  //   this.updateSession(session);
-  // }
-
-  async signInAnonymously(): Promise<Session> {
+  async login(username: string, password: string) {
     const {
       data: { session },
-      error: sessionError,
-    } = await this.client.auth.getSession();
-
-    if (sessionError) {
-      throw sessionError;
-    }
-
-    if (session) {
-      this.updateSession(session);
-      return session;
-    }
-
-    const {
-      data: { session: anonymousSession },
       error,
-    } = await this.client.auth.signInAnonymously();
+    } = await this.client.auth.signInWithPassword({
+      email: username,
+      password: password,
+    });
 
     if (error) {
       throw error;
     }
 
-    if (!anonymousSession) {
-      throw new Error("Anonymous sign-in did not return a session");
-    }
-
-    this.updateSession(anonymousSession);
-    return anonymousSession;
+    this.updateSession(session);
   }
+
+  // async signInAnonymously(): Promise<Session> {
+  //   const {
+  //     data: { session },
+  //     error: sessionError,
+  //   } = await this.client.auth.getSession();
+
+  //   if (sessionError) {
+  //     throw sessionError;
+  //   }
+
+  //   if (session) {
+  //     this.updateSession(session);
+  //     return session;
+  //   }
+
+  //   const {
+  //     data: { session: anonymousSession },
+  //     error,
+  //   } = await this.client.auth.signInAnonymously();
+
+  //   if (error) {
+  //     throw error;
+  //   }
+
+  //   if (!anonymousSession) {
+  //     throw new Error("Anonymous sign-in did not return a session");
+  //   }
+
+  //   this.updateSession(anonymousSession);
+  //   return anonymousSession;
+  // }
 
   async logout() {
     await this.client.auth.signOut();
@@ -130,14 +144,32 @@ export class SupabaseConnector extends BaseObserver<SupabaseConnectorListener>
     this.iterateListeners((cb) => cb.sessionStarted?.(session));
   }
 
+  // async fetchCredentialsAnonymous() {
+  //   const session = await this.signInAnonymously();
+
+  //   console.debug("session expires at", session.expires_at);
+
+  //   return {
+  //     endpoint: this.config.powersyncUrl,
+  //     token: session.access_token,
+  //   };
+  // }
+
   async fetchCredentials() {
-    const session = await this.signInAnonymously();
+    const {
+      data: { session },
+      error,
+    } = await this.client.auth.getSession();
+
+    if (!session || error) {
+      throw new Error(`Could not fetch Supabase credentials: ${error}`);
+    }
 
     console.debug("session expires at", session.expires_at);
 
     return {
       endpoint: this.config.powersyncUrl,
-      token: session.access_token,
+      token: session.access_token ?? "",
     };
   }
 
