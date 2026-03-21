@@ -1,4 +1,5 @@
 import { html, LitElement } from "lit";
+import Router from "@app/router";
 import { noShadow } from "@/lib/mixins/noShadow.ts";
 import { useRouter } from "@/lib/mixins/useRouter.ts";
 import { useSupabase } from "@/lib/mixins/useSupabase.ts";
@@ -10,11 +11,13 @@ export function Login() {
 }
 
 class LoginComponent extends useSupabase(useRouter(noShadow(LitElement))) {
+  declare protected router: Router;
+
   override connectedCallback() {
     super.connectedCallback();
 
-    console.log(this.router);
-    console.log(this.supabase);
+    console.log("router", this.router);
+    console.log("supabase", this.supabase);
   }
 
   override render() {
@@ -34,7 +37,7 @@ class LoginComponent extends useSupabase(useRouter(noShadow(LitElement))) {
         </div>
 
         <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-          <form action="#" method="POST" class="space-y-6">
+          <form action="#" method="post" class="space-y-6">
             <div>
               <label
                 for="email"

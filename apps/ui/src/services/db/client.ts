@@ -61,8 +61,10 @@ export const powersync = new PowerSyncDatabase({
   logger: logger,
 });
 
+export const supabase = new SupabaseConnector();
+
 // Establish connection between PowerSync and the Supabase connector
-powersync.connect(new SupabaseConnector(), {
+powersync.connect(supabase, {
   // Rust based implementation is more efficient and faster than the JavaScript implementation
   clientImplementation: SyncClientImplementation.RUST,
   crudUploadThrottleMs: 5000,
