@@ -1,9 +1,9 @@
 import { html, LitElement } from "lit";
 import "@tailwindplus/elements";
 import type Router from "@app/router";
-import { noShadow } from "../mixins/noShadow.ts";
-import { useRouter } from "../mixins/useRouter.ts";
-import { useSupabase } from "../mixins/useSupabase.ts";
+import { noShadow } from "@/lib/mixins/noShadow.ts";
+import { useRouter } from "@/lib/mixins/useRouter.ts";
+import { useSupabase } from "@/lib/mixins/useSupabase.ts";
 
 import "./nav-link.ts";
 

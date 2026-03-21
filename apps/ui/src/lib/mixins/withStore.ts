@@ -1,6 +1,6 @@
 import { LitElement } from "lit";
 import { ContextProvider } from "@lit/context";
-import RootStore from "@/state/stores/root.ts";
+import RootStore from "@/lib/stores/root.ts";
 
 // The context object for children to access the router instance.
 // See: https://lit.dev/docs/data/context

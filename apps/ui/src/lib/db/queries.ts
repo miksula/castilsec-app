@@ -41,33 +41,33 @@ export function watchTaskLists() {
   });
 }
 
-export async function getTasks() {
-  const rows = await db.selectFrom("tasks").selectAll().execute();
-  return rows.map(mapTask);
-}
+// export async function getTasks() {
+//   const rows = await db.selectFrom("tasks").selectAll().execute();
+//   return rows.map(mapTask);
+// }
 
-export async function createTask(text: string) {
-  await powersync.execute("INSERT INTO tasks(id, text) VALUES(uuid(), ?)", [
-    text,
-  ]);
-}
+// export async function createTask(text: string) {
+//   await powersync.execute("INSERT INTO tasks(id, text) VALUES(uuid(), ?)", [
+//     text,
+//   ]);
+// }
 
-export async function deleteTask(id: string) {
-  await powersync.execute("DELETE FROM tasks WHERE id = ?", [id]);
-}
+// export async function deleteTask(id: string) {
+//   await powersync.execute("DELETE FROM tasks WHERE id = ?", [id]);
+// }
 
-export async function updateTask(id: string, completed?: 0 | 1, text?: string) {
-  console.log("Updating task", { id, completed, text });
-  if (completed !== undefined) {
-    await powersync.execute("UPDATE tasks SET completed = ? WHERE id = ?", [
-      completed,
-      id,
-    ]);
-  }
-  if (text !== undefined) {
-    await powersync.execute("UPDATE tasks SET text = ? WHERE id = ?", [
-      text,
-      id,
-    ]);
-  }
-}
+// export async function updateTask(id: string, completed?: 0 | 1, text?: string) {
+//   console.log("Updating task", { id, completed, text });
+//   if (completed !== undefined) {
+//     await powersync.execute("UPDATE tasks SET completed = ? WHERE id = ?", [
+//       completed,
+//       id,
+//     ]);
+//   }
+//   if (text !== undefined) {
+//     await powersync.execute("UPDATE tasks SET text = ? WHERE id = ?", [
+//       text,
+//       id,
+//     ]);
+//   }
+// }

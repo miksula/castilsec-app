@@ -8,7 +8,7 @@ import {
 } from "@powersync/web";
 import { wrapPowerSyncWithKysely } from "@powersync/kysely-driver";
 import { AppSchema, Database } from "@/schema.ts";
-import { SupabaseConnector } from "@/services/db/connector.ts";
+import { SupabaseConnector } from "@/lib/db/connector.ts";
 
 const logger = createBaseLogger();
 logger.useDefaults();

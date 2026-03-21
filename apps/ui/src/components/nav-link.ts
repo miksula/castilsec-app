@@ -1,8 +1,8 @@
 import { html, LitElement } from "lit";
 import { classMap } from "lit/directives/class-map.js";
 
-import { noShadow } from "../mixins/noShadow.ts";
-import { useRouter } from "../mixins/useRouter.ts";
+import { noShadow } from "@/lib/mixins/noShadow.ts";
+import { useRouter } from "@/lib/mixins/useRouter.ts";
 
 const props = {
   text: { type: String },

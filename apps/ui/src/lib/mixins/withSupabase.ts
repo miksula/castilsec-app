@@ -1,7 +1,7 @@
 import { LitElement } from "lit";
 import { ContextProvider } from "@lit/context";
 
-import { supabase } from "@/services/db/client.ts";
+import { supabase } from "@/lib/db/client.ts";
 import { supabaseContext } from "./supabaseContext.ts";
 
 export const withSupabase = (superClass: typeof LitElement) =>

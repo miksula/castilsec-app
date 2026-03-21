@@ -66,7 +66,7 @@ class LoginComponent extends useSupabase(useRouter(noShadow(LitElement))) {
       <div class="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
         <div class="sm:mx-auto sm:w-full sm:max-w-sm">
           <img
-            src="/logo-outline.svg"
+            src="/logo.svg"
             alt="CastilSec"
             class="mx-auto h-12 w-auto opacity-100"
           />
@@ -97,7 +97,7 @@ class LoginComponent extends useSupabase(useRouter(noShadow(LitElement))) {
                   required
                   ?disabled="${this.isSubmitting}"
                   autocomplete="email"
-                  class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6 dark:bg-white/5 dark:text-white dark:outline-white/10 dark:placeholder:text-gray-500 dark:focus:outline-indigo-500"
+                  class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 outline-gray-300 placeholder:text-gray-400 sm:text-sm/6"
                 />
               </div>
             </div>
@@ -123,7 +123,7 @@ class LoginComponent extends useSupabase(useRouter(noShadow(LitElement))) {
                   required
                   ?disabled="${this.isSubmitting}"
                   autocomplete="current-password"
-                  class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6 dark:bg-white/5 dark:text-white dark:outline-white/10 dark:placeholder:text-gray-500 dark:focus:outline-indigo-500"
+                  class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 outline-gray-300 placeholder:text-gray-400 sm:text-sm/6"
                 />
               </div>
             </div>
@@ -140,7 +140,7 @@ class LoginComponent extends useSupabase(useRouter(noShadow(LitElement))) {
               <button
                 type="submit"
                 ?disabled="${this.isSubmitting}"
-                class="flex w-full justify-center rounded-md bg-brand-blue px-3 py-1.5 text-sm/6 font-semibold text-white shadow-xs hover:bg-brand-blue-dark focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 dark:bg-indigo-500 dark:shadow-none dark:hover:bg-indigo-400 dark:focus-visible:outline-indigo-500"
+                class="flex w-full justify-center rounded-md bg-black px-3 py-1.5 text-sm/6 font-semibold text-white shadow-xs focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-600"
               >
                 ${this.isSubmitting ? "Kirjaudutaan..." : "Kirjaudu"}
               </button>

@@ -2,29 +2,32 @@ import { LitElement, type TemplateResult } from "lit";
 import Router from "@app/router";
 
 import type { State } from "@/lib/types.ts";
-import type { SupabaseConnector } from "@/lib/mixins/supabaseContext.ts";
 import { EVENT_DATA, EVENT_LOAD } from "@/lib/constants.ts";
-import { noShadow } from "@/lib/mixins/noShadow.ts";
-import { withRouter } from "@/lib/mixins/withRouter.ts";
-import { withStore } from "@/lib/mixins/withStore.ts";
-import { withSupabase } from "@/lib/mixins/withSupabase.ts";
-import { prepareHooks } from "@/state/hooks.ts";
-import RootStore from "@/state/stores/root.ts";
+import {
+  noShadow,
+  type Store,
+  type SupabaseConnector,
+  withRouter,
+  withStore,
+  withSupabase,
+} from "@/lib/mixins/index.ts";
+import { prepareHooks } from "@/lib/hooks.ts";
 
 import { Dashboard, Login, NotFound, Register, Tasks } from "@/routes/index.ts";
-import Layout from "./layout.ts";
-import AuthLayout from "./routes/auth/layout.ts";
+import Layout from "@/layout.ts";
+import AuthLayout from "@/routes/auth/layout.ts";
 
 export class MainApp extends withSupabase(
   withRouter(withStore(noShadow(LitElement))),
 ) {
   declare protected router: Router;
-  declare protected store: ReturnType<typeof RootStore>;
+  declare protected store: Store;
   declare protected supabase: SupabaseConnector;
 
   private page: TemplateResult | null = null;
   private state!: State;
   private authSubscription?: { unsubscribe: () => void };
+
   private readonly onStateData = (event: CustomEvent<State>) => {
     this.state = event.detail;
     this.router.check();

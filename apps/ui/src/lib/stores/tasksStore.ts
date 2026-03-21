@@ -1,7 +1,7 @@
 import type { Todo, TodoList } from "@/lib/types.ts";
-import { action } from "@/state/action.ts";
-import * as queries from "@/services/db/queries.ts";
-import type { TodoListRow } from "@/services/db/queries.ts";
+import { action } from "@/lib/action.ts";
+import * as queries from "@/lib/db/queries.ts";
+import type { TodoListRow } from "@/lib/db/queries.ts";
 
 const initialState: TodoList[] = [];
 

@@ -1,5 +1,5 @@
 import { html, type TemplateResult } from "lit";
-import "@/lib/components/app-navigation.ts";
+import "@/components/app-navigation.ts";
 
 export default function Layout(content: TemplateResult | null) {
   return html`
