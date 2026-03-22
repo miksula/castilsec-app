@@ -95,7 +95,7 @@ class AppNavigation extends useSupabase(useRouter(noShadow(LitElement))) {
                 @click="${() => this.router.navigate("/")}"
                 class="flex shrink-0 items-center gap-3 rounded-md focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand"
               >
-                <img src="/logo.svg" alt="CastilSec" class="h-8 w-8 rounded-lg" />
+                <img src="/logo-castle.svg" alt="CastilSec" class="h-6 w-6 rounded-lg" />
                 <span class="text-sm font-semibold tracking-[0.18em] text-gray-900">
                   CASTILSEC
                 </span>

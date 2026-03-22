@@ -6,7 +6,7 @@ export interface State {
   taskLists: typeof tasksStore.state;
 }
 
-const initialState = {
+export const initialState = {
   taskLists: tasksStore.state,
 };
 

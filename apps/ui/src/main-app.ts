@@ -13,7 +13,14 @@ import {
 } from "@/lib/mixins/index.ts";
 import { prepareHooks } from "@/lib/hooks.ts";
 
-import { Dashboard, Login, NotFound, Register, Tasks } from "@/routes/index.ts";
+import {
+  Dashboard,
+  Login,
+  NotFound,
+  Play,
+  Register,
+  Tasks,
+} from "@/routes/index.ts";
 import Layout from "@/layout.ts";
 import AuthLayout from "@/routes/auth/layout.ts";
 
@@ -28,9 +35,9 @@ export class MainApp extends withSupabase(
   private state!: State;
   private authSubscription?: { unsubscribe: () => void };
 
-  private readonly onStateData = (event: CustomEvent<State>) => {
+  private readonly onStateChange = (event: CustomEvent<State>) => {
     this.state = event.detail;
-    this.router.check();
+    this.router.check(); // triggers update
   };
 
   constructor() {
@@ -49,6 +56,9 @@ export class MainApp extends withSupabase(
       })
       .add("/auth/register", () => {
         this.page = Register();
+      })
+      .add("/play", () => {
+        this.page = Play();
       })
       .add("/*", () => {
         this.page = NotFound(this.router.path);
@@ -90,14 +100,14 @@ export class MainApp extends withSupabase(
     this.authSubscription = subscription;
 
     // Listen for state update events
-    addEventListener(EVENT_DATA, this.onStateData as EventListener);
+    addEventListener(EVENT_DATA, this.onStateChange as EventListener);
 
     this.loadData(); // Trigger initial update to get the state from persistent storage
   }
 
   override disconnectedCallback() {
     this.authSubscription?.unsubscribe();
-    removeEventListener(EVENT_DATA, this.onStateData as EventListener);
+    removeEventListener(EVENT_DATA, this.onStateChange as EventListener);
     super.disconnectedCallback();
   }
 
@@ -119,6 +129,9 @@ export class MainApp extends withSupabase(
   override render() {
     if (this.router.path.startsWith("/auth")) {
       return AuthLayout(this.page);
+    }
+    if (this.router.path === "/play") {
+      return this.page; // Play route has its own unique layout for testing purposes, so we render it directly without the main layout
     }
     return Layout(this.page);
   }

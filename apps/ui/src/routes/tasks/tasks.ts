@@ -15,6 +15,7 @@ class TasksRoute extends useStore(noShadow(LitElement)) {
   private lists: TodoList[] = [];
 
   private readonly handleStateChange = (event: CustomEvent<State>) => {
+    console.log("Received state change event:", event.detail);
     this.lists = event.detail.taskLists;
     this.requestUpdate();
   };
@@ -22,6 +23,7 @@ class TasksRoute extends useStore(noShadow(LitElement)) {
   override connectedCallback() {
     super.connectedCallback();
     this.lists = this.store?.getState().taskLists ?? [];
+    console.log("Initial task lists:", this.lists);
     addEventListener(EVENT_DATA, this.handleStateChange as EventListener);
   }
 
