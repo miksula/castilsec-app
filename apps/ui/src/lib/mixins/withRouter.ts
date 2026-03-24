@@ -12,7 +12,11 @@ type Constructor<T = Record<string, never>> = new (...args: any[]) => T;
 
 export function withRouter<T extends Constructor<LitElement>>(Base: T) {
   return class WithRouterMixin extends Base {
-    protected router = new Router();
+    private routerInstance = new Router();
+
+    protected get router() {
+      return this.routerInstance;
+    }
 
     private _routerProvider = new ContextProvider(this, {
       context: routerContext,

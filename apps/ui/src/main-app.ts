@@ -6,7 +6,6 @@ import { EVENT_DATA, EVENT_LOAD } from "@/lib/constants.ts";
 import {
   noShadow,
   type Store,
-  type SupabaseConnector,
   withRouter,
   withStore,
   withSupabase,
@@ -27,9 +26,13 @@ import AuthLayout from "@/routes/auth/layout.ts";
 export class MainApp extends withSupabase(
   withRouter(withStore(noShadow(LitElement))),
 ) {
-  declare protected router: Router;
-  declare protected store: Store;
-  declare protected supabase: SupabaseConnector;
+  protected override get router(): Router {
+    return super.router;
+  }
+
+  protected override get store(): Store {
+    return super.store;
+  }
 
   private page: TemplateResult | null = null;
   private state!: State;
@@ -63,7 +66,7 @@ export class MainApp extends withSupabase(
       .add("/*", () => {
         this.page = NotFound(this.router.path);
       })
-      .onRouteCheck((path) => {
+      .onRouteCheck((path: string) => {
         this.enforceAuthRoute(path);
         // This callback prepares the hook system and triggers a new render cycle
         // every time the router `check()` is called
