@@ -3,15 +3,24 @@ import { ContextConsumer } from "@lit/context";
 
 import { routerContext } from "./routerContext.ts";
 
-export const useRouter = (superClass: typeof LitElement) =>
-  class UseRouterMixin extends superClass {
-    // Consume the router context
+// deno-lint-ignore no-explicit-any
+type Constructor<T = Record<string, never>> = new (...args: any[]) => T;
+
+export function useRouter<T extends Constructor<LitElement>>(Base: T) {
+  return class UseRouterMixin extends Base {
     private routerInstance = new ContextConsumer(this, {
       context: routerContext,
       subscribe: true,
     });
 
     protected get router() {
-      return this.routerInstance.value;
+      const router = this.routerInstance.value;
+
+      if (!router) {
+        throw new Error("Router context is not available.");
+      }
+
+      return router;
     }
   };
+}

@@ -3,17 +3,9 @@ import "@vaadin/email-field";
 import "@vaadin/button";
 
 import { html, LitElement } from "lit";
-import type Router from "@app/router";
-import {
-  type SupabaseConnector,
-  useRouter,
-  useSupabase,
-} from "@/lib/mixins/index.ts";
+import { useRouter, useSupabase } from "@/lib/mixins/index.ts";
 
 class LoginComponent extends useSupabase(useRouter(LitElement)) {
-  declare protected router: Router;
-  declare protected supabase: SupabaseConnector;
-
   private isSubmitting = false;
   private errorMessage = "";
 
@@ -24,12 +16,15 @@ class LoginComponent extends useSupabase(useRouter(LitElement)) {
 
   private async handleSubmit(event: SubmitEvent) {
     event.preventDefault();
+    console.log("Login form submitted", event.currentTarget);
+    console.log("Current isSubmitting state:", this.isSubmitting);
 
     if (this.isSubmitting) {
       return;
     }
 
-    const form = event.currentTarget;
+    const form = (event.target as Element)?.closest("form");
+    console.log("Form element found:", form);
     if (!(form instanceof HTMLFormElement)) {
       return;
     }
@@ -38,16 +33,17 @@ class LoginComponent extends useSupabase(useRouter(LitElement)) {
     const email = String(formData.get("email") ?? "").trim();
     const password = String(formData.get("password") ?? "");
 
-    if (!this.supabase) {
-      this.errorMessage =
-        "Kirjautuminen ei ole viela valmis. Yrita hetken kuluttua uudelleen.";
-      this.requestUpdate();
-      return;
-    }
+    console.log("Extracted email:", email);
+    console.log("Extracted password:", password);
+    console.log("Supabase instance:", this.supabase);
 
     this.isSubmitting = true;
     this.errorMessage = "";
     this.requestUpdate();
+
+    console.log("Attempting login with email:", email);
+    console.log("Attempting login with password:", password);
+    console.log("Supabase instance:", this.supabase);
 
     try {
       await this.supabase.login(email, password);
@@ -98,7 +94,7 @@ class LoginComponent extends useSupabase(useRouter(LitElement)) {
         </div>
 
         <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-          <form class="flex flex-col space-y-5" @submit="${this.handleSubmit}">
+          <form class="flex flex-col space-y-5">
             <vaadin-email-field
               id="email"
               name="email"
@@ -132,6 +128,7 @@ class LoginComponent extends useSupabase(useRouter(LitElement)) {
                 theme="primary"
                 type="submit"
                 ?disabled="${this.isSubmitting}"
+                @click="${this.handleSubmit}"
               >
                 ${this.isSubmitting ? "Kirjaudutaan..." : "Kirjaudu"}
               </vaadin-button>
