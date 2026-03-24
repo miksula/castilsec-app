@@ -1,18 +1,19 @@
+import "@vaadin/password-field";
+import "@vaadin/email-field";
+import "@vaadin/button";
+
 import { html, LitElement } from "lit";
 import type Router from "@app/router";
-import { noShadow } from "@/lib/mixins/noShadow.ts";
-import { useRouter } from "@/lib/mixins/useRouter.ts";
-import { useSupabase } from "@/lib/mixins/useSupabase.ts";
+import {
+  type SupabaseConnector,
+  useRouter,
+  useSupabase,
+} from "@/lib/mixins/index.ts";
 
-// Functional export for route component
-export function Login() {
-  return html`
-    <login-component></login-component>
-  `;
-}
-
-class LoginComponent extends useSupabase(useRouter(noShadow(LitElement))) {
+class LoginComponent extends useSupabase(useRouter(LitElement)) {
   declare protected router: Router;
+  declare protected supabase: SupabaseConnector;
+
   private isSubmitting = false;
   private errorMessage = "";
 
@@ -61,72 +62,61 @@ class LoginComponent extends useSupabase(useRouter(noShadow(LitElement))) {
     }
   }
 
+  override createRenderRoot() {
+    return this; // no shadow DOM
+  }
+
   override render() {
     return html`
       <div class="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
-        <div class="sm:mx-auto sm:w-full sm:max-w-sm">
-          <img
-            src="/logo.svg"
-            alt="CastilSec"
-            class="mx-auto h-12 w-auto opacity-100"
-          />
-          <h2
-            class="mt-10 text-center text-2xl/9 font-bold tracking-tight text-gray-900 dark:text-white"
+        <div class="sm:mx-auto sm:w-full sm:max-w-sm flex flex-col items-center">
+          <div
+            class="my-6 h-12 w-auto text-(--aura-accent-color)"
           >
+            <svg viewBox="0 0 100 100" width="100%" height="100%">
+              <path
+                d="M50 8 L84 22 L84 53 C84 73 50 92 50 92 C50 92 16 73 16 53 L16 22 Z"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="4.5"
+                stroke-linejoin="round"
+              />
+              <rect x="33" y="33" width="8" height="12" fill="currentColor" rx="1" />
+              <rect x="46" y="33" width="8" height="12" fill="currentColor" rx="1" />
+              <rect x="59" y="33" width="8" height="12" fill="currentColor" rx="1" />
+              <path
+                d="M33 44 H67 V64 H33 Z M43 64 L43 58 Q50 48 57 58 L57 64 Z"
+                fill="currentColor"
+                fill-rule="evenodd"
+                clip-rule="evenodd"
+              />
+            </svg>
+          </div>
+          <h2>
             Kirjaudu sisään tilillesi
           </h2>
         </div>
 
         <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-          <form
-            action="#"
-            method="post"
-            class="space-y-6"
-            @submit="${this.handleSubmit}"
-          >
-            <div>
-              <label
-                for="email"
-                class="block text-sm/6 font-medium text-gray-900 dark:text-gray-100"
-              >Sähköposti</label>
-              <div class="mt-2">
-                <input
-                  id="email"
-                  type="email"
-                  name="email"
-                  required
-                  ?disabled="${this.isSubmitting}"
-                  autocomplete="email"
-                  class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 outline-gray-300 placeholder:text-gray-400 sm:text-sm/6"
-                />
-              </div>
-            </div>
+          <form class="flex flex-col space-y-5" @submit="${this.handleSubmit}">
+            <vaadin-email-field
+              id="email"
+              name="email"
+              label="Sähköposti"
+              autocomplete="email"
+              error-message="Anna kelvollinen sähköpostiosoite"
+              ?disabled="${this.isSubmitting}"
+              clear-button-visible
+            ></vaadin-email-field>
 
-            <div>
-              <div class="flex items-center justify-between">
-                <label
-                  for="password"
-                  class="block text-sm/6 font-medium text-gray-900 dark:text-gray-100"
-                >Salasana</label>
-                <div class="text-sm">
-                  <a
-                    href="#"
-                    class="font-semibold text-brand-blue hover:text-brand-blue-dark"
-                  >Unohditko salasanan?</a>
-                </div>
-              </div>
-              <div class="mt-2">
-                <input
-                  id="password"
-                  type="password"
-                  name="password"
-                  required
-                  ?disabled="${this.isSubmitting}"
-                  autocomplete="current-password"
-                  class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 outline-gray-300 placeholder:text-gray-400 sm:text-sm/6"
-                />
-              </div>
-            </div>
+            <vaadin-password-field
+              id="password"
+              name="password"
+              label="Salasana"
+              autocomplete="current-password"
+              error-message="Salasana vaaditaan"
+              ?disabled="${this.isSubmitting}"
+            ></vaadin-password-field>
 
             ${this.errorMessage
               ? html`
@@ -136,14 +126,15 @@ class LoginComponent extends useSupabase(useRouter(noShadow(LitElement))) {
               `
               : null}
 
-            <div>
-              <button
+            <div class="flex items-center justify-center mt-2">
+              <vaadin-button
+                class="w-full"
+                theme="primary"
                 type="submit"
                 ?disabled="${this.isSubmitting}"
-                class="flex w-full justify-center rounded-md bg-black px-3 py-1.5 text-sm/6 font-semibold text-white shadow-xs focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-600"
               >
                 ${this.isSubmitting ? "Kirjaudutaan..." : "Kirjaudu"}
-              </button>
+              </vaadin-button>
             </div>
           </form>
 
@@ -163,3 +154,10 @@ class LoginComponent extends useSupabase(useRouter(noShadow(LitElement))) {
 }
 
 customElements.define("login-component", LoginComponent);
+
+// Functional export for route component
+export function Login() {
+  return html`
+    <login-component></login-component>
+  `;
+}

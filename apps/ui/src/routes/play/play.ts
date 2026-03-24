@@ -1,8 +1,50 @@
+import "@vaadin/password-field";
+import "@vaadin/text-field";
+import "@vaadin/button";
+
 import { html, LitElement } from "lit";
 
 import "@tailwindplus/elements";
 
 export function Play() {
+  return html`
+    <play-route></play-route>
+  `;
+}
+
+class PlayRoute extends LitElement {
+  override createRenderRoot() {
+    return this;
+  }
+
+  override render() {
+    return html`
+      ${Header()}
+      <main class="p-6">
+        <h1 class="text-2xl font-bold my-8 text-center">Login</h1>
+        <!-- <p class="mt-4 text-gray-600">Tervetuloa CastilSecin työpöydälle!</p> -->
+
+        <div class="flex flex-col mx-auto w-96">
+          <vaadin-text-field
+            label="Username"
+            value="exampleUser"
+            class="mb-4"
+          ></vaadin-text-field>
+          <vaadin-password-field
+            label="Password"
+            value="Ex@mplePassw0rd"
+            class="mb-4"
+          ></vaadin-password-field>
+          <vaadin-button class="mt-4" theme="primary">Login</vaadin-button>
+        </div>
+      </main>
+    `;
+  }
+}
+
+customElements.define("play-route", PlayRoute);
+
+function Header() {
   return html`
     <header class="w-full">
       <div class="flex h-12 items-center border-b border-gray-200 px-6">

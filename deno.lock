@@ -19,6 +19,11 @@
     "npm:@supabase/supabase-js@^2.99.1": "2.99.1",
     "npm:@tailwindcss/vite@^4.2.1": "4.2.1_vite@7.3.1",
     "npm:@tailwindplus/elements@^1.0.22": "1.0.22",
+    "npm:@vaadin/aura@^25.2.0-alpha1": "25.2.0-alpha1",
+    "npm:@vaadin/button@^25.2.0-alpha1": "25.2.0-alpha1",
+    "npm:@vaadin/email-field@^25.2.0-alpha1": "25.2.0-alpha1",
+    "npm:@vaadin/password-field@^25.2.0-alpha1": "25.2.0-alpha1",
+    "npm:@vaadin/text-field@^25.2.0-alpha1": "25.2.0-alpha1",
     "npm:lit@^3.3.2": "3.3.2",
     "npm:tailwindcss@^4.2.1": "4.2.1",
     "npm:vite-plugin-devtools-json@1": "1.0.0_vite@7.3.1",
@@ -251,6 +256,9 @@
       "dependencies": [
         "@lit-labs/ssr-dom-shim"
       ]
+    },
+    "@open-wc/dedupe-mixin@1.4.0": {
+      "integrity": "sha512-Sj7gKl1TLcDbF7B6KUhtvr+1UCxdhMbNY5KxdU5IfMFWqL8oy1ZeAcCANjoB1TL0AJTcPmcCFsCbHf8X2jGDUA=="
     },
     "@powersync/common@1.49.0": {
       "integrity": "sha512-g6uonubvtmtyx8hS/G5trg9LsBvzHY3tAKHiV7SIQV3Xyz9ONM6NNnjDMP2vcLZVmsOSi8x/QJZmy/ig1YtBMg==",
@@ -567,6 +575,105 @@
       "dependencies": [
         "@types/node"
       ]
+    },
+    "@vaadin/a11y-base@25.2.0-alpha1": {
+      "integrity": "sha512-2CVe8OwpX9R9IQvbscJ63hP6woCruNLE6DkpzE+rt8xi2S5q5/KoykMouSepIBGl9bUOgt/zX+F8f+kntifbQg==",
+      "dependencies": [
+        "@open-wc/dedupe-mixin",
+        "@vaadin/component-base",
+        "lit"
+      ]
+    },
+    "@vaadin/aura@25.2.0-alpha1": {
+      "integrity": "sha512-V0PP7GcCU9l7na4BXxMS5BHL79FYHO8rggjxilb9QX18tIy2Yl599DKgStAvyylQ6nZ0kQrlIHRFsgRAmCoxeg=="
+    },
+    "@vaadin/button@25.2.0-alpha1": {
+      "integrity": "sha512-vueaPlvvP1FqbUrAmz2NC1kWWl0wcNCeBjY76J53QyWVZMCjefjqS9RDGCAru8RXL2tZT4ExsrKuv0UUd/vB3Q==",
+      "dependencies": [
+        "@open-wc/dedupe-mixin",
+        "@vaadin/a11y-base",
+        "@vaadin/component-base",
+        "@vaadin/vaadin-themable-mixin",
+        "lit"
+      ]
+    },
+    "@vaadin/component-base@25.2.0-alpha1": {
+      "integrity": "sha512-ezQKZ5xSMccr8gXItCF7hGaW/IsRB4oIRaUlck60vapXp1bdOvH6BY5bUH2V1+RytMixibi+MmpeUeWALl1S1A==",
+      "dependencies": [
+        "@open-wc/dedupe-mixin",
+        "@vaadin/vaadin-development-mode-detector",
+        "@vaadin/vaadin-usage-statistics",
+        "lit"
+      ]
+    },
+    "@vaadin/email-field@25.2.0-alpha1": {
+      "integrity": "sha512-EOCHrWIMHGpkJdvy5pHdYwxL59DjK6M10x2hBF/hH0Wm7MY0tO9REiXDRs0MGQmiYeWeu3BqD47ZlZVP595OOA==",
+      "dependencies": [
+        "@vaadin/component-base",
+        "@vaadin/text-field",
+        "@vaadin/vaadin-themable-mixin",
+        "lit"
+      ]
+    },
+    "@vaadin/field-base@25.2.0-alpha1": {
+      "integrity": "sha512-9N8S38hcjrpPDkGaR8687q0f2dgW9Y0KeChIWkF32aDN0+TpexoZ8v1KPTISCrGwSzZNx3B3UEqnDlru4LVuFw==",
+      "dependencies": [
+        "@open-wc/dedupe-mixin",
+        "@vaadin/a11y-base",
+        "@vaadin/component-base",
+        "lit"
+      ]
+    },
+    "@vaadin/input-container@25.2.0-alpha1": {
+      "integrity": "sha512-YTBttcyAQugktRG43dQj7eGKKEzcy7cRXX7b3CGa63hhkfjw1HHx1Y4myaTrOWM6H81O4Pz+f/hwM/jRPs4CKQ==",
+      "dependencies": [
+        "@vaadin/component-base",
+        "@vaadin/vaadin-themable-mixin",
+        "lit"
+      ]
+    },
+    "@vaadin/password-field@25.2.0-alpha1": {
+      "integrity": "sha512-OEbh1nhWfn2Sz5wIFWBgb0bJ5bBba9Pv+6b/R3zedCCnhJ0ZRTLSqEwAQ/HksasPQtqY09hLoGHxfUUv3neKAw==",
+      "dependencies": [
+        "@open-wc/dedupe-mixin",
+        "@vaadin/a11y-base",
+        "@vaadin/button",
+        "@vaadin/component-base",
+        "@vaadin/field-base",
+        "@vaadin/text-field",
+        "@vaadin/vaadin-themable-mixin",
+        "lit"
+      ]
+    },
+    "@vaadin/text-field@25.2.0-alpha1": {
+      "integrity": "sha512-4c99wvqcLzjANdLdJ5cMN3OhgmVxnTCCXDZ7YPAQ13Ykap2NPgeDmTeoUJqxr1RijX7w6+4mJ/HjQYsW0ucAkQ==",
+      "dependencies": [
+        "@open-wc/dedupe-mixin",
+        "@vaadin/a11y-base",
+        "@vaadin/component-base",
+        "@vaadin/field-base",
+        "@vaadin/input-container",
+        "@vaadin/vaadin-themable-mixin",
+        "lit"
+      ]
+    },
+    "@vaadin/vaadin-development-mode-detector@2.0.7": {
+      "integrity": "sha512-9FhVhr0ynSR3X2ao+vaIEttcNU5XfzCbxtmYOV8uIRnUCtNgbvMOIcyGBvntsX9I5kvIP2dV3cFAOG9SILJzEA=="
+    },
+    "@vaadin/vaadin-themable-mixin@25.2.0-alpha1": {
+      "integrity": "sha512-fbhUNyGe6xDQ9hvqxJIdiVflebuy14aUKRUoyb39t/yzxv+fKkpsMFJbvEdbQKzUwlame3Ho+Ko0nehdN7H3sQ==",
+      "dependencies": [
+        "@open-wc/dedupe-mixin",
+        "@vaadin/component-base",
+        "lit"
+      ]
+    },
+    "@vaadin/vaadin-usage-statistics@2.1.3": {
+      "integrity": "sha512-8r4TNknD7OJQADe3VygeofFR7UNAXZ2/jjBFP5dgI8+2uMfnuGYgbuHivasKr9WSQ64sPej6m8rDoM1uSllXjQ==",
+      "dependencies": [
+        "@vaadin/vaadin-development-mode-detector"
+      ],
+      "scripts": true
     },
     "async-mutex@0.5.0": {
       "integrity": "sha512-1A94B18jkJ3DYq284ohPxoXbfTA5HsQ7/Mf4DEhcyLx3Bz27Rh59iScbB6EPiP+B+joue6YCxcMXSbFC1tZKwA==",
@@ -909,6 +1016,11 @@
             "npm:@supabase/supabase-js@^2.99.1",
             "npm:@tailwindcss/vite@^4.2.1",
             "npm:@tailwindplus/elements@^1.0.22",
+            "npm:@vaadin/aura@^25.2.0-alpha1",
+            "npm:@vaadin/button@^25.2.0-alpha1",
+            "npm:@vaadin/email-field@^25.2.0-alpha1",
+            "npm:@vaadin/password-field@^25.2.0-alpha1",
+            "npm:@vaadin/text-field@^25.2.0-alpha1",
             "npm:lit@^3.3.2",
             "npm:tailwindcss@^4.2.1",
             "npm:vite-plugin-devtools-json@1",

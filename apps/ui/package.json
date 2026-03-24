@@ -16,6 +16,11 @@
     "@powersync/web": "^1.36.0",
     "@supabase/supabase-js": "^2.99.1",
     "@tailwindplus/elements": "^1.0.22",
+    "@vaadin/aura": "^25.2.0-alpha1",
+    "@vaadin/button": "^25.2.0-alpha1",
+    "@vaadin/email-field": "^25.2.0-alpha1",
+    "@vaadin/password-field": "^25.2.0-alpha1",
+    "@vaadin/text-field": "^25.2.0-alpha1",
     "lit": "^3.3.2",
     "tailwindcss": "^4.2.1"
   },

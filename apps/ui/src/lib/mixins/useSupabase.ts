@@ -11,7 +11,5 @@ export const useSupabase = (superClass: typeof LitElement) =>
       subscribe: true,
     });
 
-    protected get supabase() {
-      return this.supabaseInstance.value;
-    }
+    protected supabase = this.supabaseInstance.value;
   };
