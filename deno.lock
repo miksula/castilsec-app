@@ -19,6 +19,7 @@
     "npm:@supabase/supabase-js@^2.99.1": "2.99.1",
     "npm:@tailwindcss/vite@^4.2.1": "4.2.1_vite@7.3.1",
     "npm:@tailwindplus/elements@^1.0.22": "1.0.22",
+    "npm:@vaadin/app-layout@^25.2.0-alpha1": "25.2.0-alpha1",
     "npm:@vaadin/aura@^25.2.0-alpha1": "25.2.0-alpha1",
     "npm:@vaadin/button@^25.2.0-alpha1": "25.2.0-alpha1",
     "npm:@vaadin/email-field@^25.2.0-alpha1": "25.2.0-alpha1",
@@ -584,6 +585,17 @@
         "lit"
       ]
     },
+    "@vaadin/app-layout@25.2.0-alpha1": {
+      "integrity": "sha512-ZV4MrVZ/QqiV4D9WeJBwjijqrCoKT48gqDctJCAK1EvsT+l942OUtTDBf594q3z9jj536mcY0wyLqD46JBRfOA==",
+      "dependencies": [
+        "@open-wc/dedupe-mixin",
+        "@vaadin/a11y-base",
+        "@vaadin/button",
+        "@vaadin/component-base",
+        "@vaadin/vaadin-themable-mixin",
+        "lit"
+      ]
+    },
     "@vaadin/aura@25.2.0-alpha1": {
       "integrity": "sha512-V0PP7GcCU9l7na4BXxMS5BHL79FYHO8rggjxilb9QX18tIy2Yl599DKgStAvyylQ6nZ0kQrlIHRFsgRAmCoxeg=="
     },
@@ -1016,6 +1028,7 @@
             "npm:@supabase/supabase-js@^2.99.1",
             "npm:@tailwindcss/vite@^4.2.1",
             "npm:@tailwindplus/elements@^1.0.22",
+            "npm:@vaadin/app-layout@^25.2.0-alpha1",
             "npm:@vaadin/aura@^25.2.0-alpha1",
             "npm:@vaadin/button@^25.2.0-alpha1",
             "npm:@vaadin/email-field@^25.2.0-alpha1",

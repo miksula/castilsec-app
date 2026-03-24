@@ -1,15 +1,17 @@
 import { LitElement, type TemplateResult } from "lit";
+import { type Session } from "@supabase/supabase-js";
 import Router from "@app/router";
 
-import type { State } from "@/lib/types.ts";
+import { type State } from "@/lib/types.ts";
 import { EVENT_DATA, EVENT_LOAD } from "@/lib/constants.ts";
 import {
-  noShadow,
   type Store,
+  type SupabaseConnector,
   withRouter,
   withStore,
   withSupabase,
 } from "@/lib/mixins/index.ts";
+
 import { prepareHooks } from "@/lib/hooks.ts";
 
 import {
@@ -23,15 +25,17 @@ import {
 import Layout from "@/layout.ts";
 import AuthLayout from "@/routes/auth/layout.ts";
 
-export class MainApp extends withSupabase(
-  withRouter(withStore(noShadow(LitElement))),
-) {
+export class MainApp extends withSupabase(withRouter(withStore(LitElement))) {
   protected override get router(): Router {
     return super.router;
   }
 
   protected override get store(): Store {
     return super.store;
+  }
+
+  protected override get supabase(): SupabaseConnector {
+    return super.supabase;
   }
 
   private page: TemplateResult | null = null;
@@ -42,6 +46,10 @@ export class MainApp extends withSupabase(
     this.state = event.detail;
     this.router.check(); // triggers update
   };
+
+  protected override createRenderRoot() {
+    return this; // no shadow DOM
+  }
 
   constructor() {
     super();
@@ -88,18 +96,20 @@ export class MainApp extends withSupabase(
 
     const {
       data: { subscription },
-    } = this.supabase.client.auth.onAuthStateChange((event, session) => {
-      this.supabase.updateSession(session);
+    } = this.supabase.client.auth.onAuthStateChange(
+      (event: string, session: Session) => {
+        this.supabase.updateSession(session);
 
-      if (event === "SIGNED_OUT") {
-        this.router.navigate("/auth/login");
-        return;
-      }
+        if (event === "SIGNED_OUT") {
+          this.router.navigate("/auth/login");
+          return;
+        }
 
-      if (event === "SIGNED_IN" && this.router.path.startsWith("/auth")) {
-        this.router.navigate("/");
-      }
-    });
+        if (event === "SIGNED_IN" && this.router.path.startsWith("/auth")) {
+          this.router.navigate("/");
+        }
+      },
+    );
     this.authSubscription = subscription;
 
     // Listen for state update events

@@ -32,3 +32,8 @@ html {
   --aura-font-family: var(--default-font-family);
 }
 
+main-app {
+  display: block;
+  min-height: 100dvh;
+}
+
