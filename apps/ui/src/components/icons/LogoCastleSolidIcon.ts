@@ -1,0 +1,26 @@
+import { html } from "lit";
+
+const LogoCastleSolidIcon = () =>
+  html`
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 100 100"
+      width="100%"
+      height="100%"
+    >
+      <rect width="100" height="100" rx="20" fill="currentColor" />
+      <g transform="translate(50 52) scale(1.5) translate(-50 -50)">
+        <rect x="33" y="33" width="8" height="12" fill="white" rx="1" />
+        <rect x="46" y="33" width="8" height="12" fill="white" rx="1" />
+        <rect x="59" y="33" width="8" height="12" fill="white" rx="1" />
+        <path
+          d="M33 44 H67 V64 H33 Z M43 64 L43 58 Q50 48 57 58 L57 64 Z"
+          fill="white"
+          fill-rule="evenodd"
+          clip-rule="evenodd"
+        />
+      </g>
+    </svg>
+  `;
+
+export default LogoCastleSolidIcon;

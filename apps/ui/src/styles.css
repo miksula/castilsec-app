@@ -32,8 +32,12 @@ html {
   --aura-font-family: var(--default-font-family);
 }
 
-main-app {
+main-app, 
+main-app > * {
   display: block;
   min-height: 100dvh;
 }
 
+vaadin-avatar {
+  background-image: none;
+}
