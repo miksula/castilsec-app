@@ -21,6 +21,12 @@ See: https://tailwindcss.com/docs/theme#default-theme-variables
   *, ::after, ::before {
     box-sizing: border-box;
   }
+  p {
+    margin: 0;
+  }
+  table {
+    border-collapse: collapse;
+  }
 }
 
 @theme static {
@@ -34,10 +40,11 @@ html {
 
 main-app, 
 main-app > * {
-  display: block;
+  display: flex;
   min-height: 100dvh;
+  min-width: 100dvw;
 }
 
 vaadin-avatar {
-  background-image: none;
+  /* background-image: none; */
 }

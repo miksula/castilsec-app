@@ -1,57 +1,61 @@
+import "@vaadin/icon";
 import { html, LitElement } from "lit";
-import { classMap } from "lit/directives/class-map.js";
+import cls from "@/lib/cls.ts";
 
-import { noShadow, useRouter } from "@/lib/mixins/index.ts";
+import { useRouter } from "@/lib/mixins/index.ts";
 
 const props = {
   text: { type: String },
   to: { type: String },
+  icon: { type: String },
   active: { type: Boolean },
-  mobile: { type: Boolean },
 };
 
-class NavLink extends useRouter(noShadow(LitElement)) {
+class NavLink extends useRouter(LitElement) {
   static override properties = props;
 
   /** The text content of the link. */
   public text: string;
   /** The target route/path of the link. */
   public to: string;
+  /** The icon to display for the link. */
+  public icon: string;
   /** Whether the link is currently active. */
   public active?: boolean;
-  /** Whether the link is rendered in mobile nav. */
-  public mobile?: boolean;
 
   constructor() {
     super();
     this.text = "";
     this.to = "/";
+    this.icon = "";
     this.active = false;
-    this.mobile = false;
+  }
+
+  protected override createRenderRoot(): HTMLElement | DocumentFragment {
+    return this; // no shadow DOM
   }
 
   override render() {
-    const isMobile = !!this.mobile;
-    const linkClasses = classMap({
-      "font-medium transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand":
-        true,
-      "inline-flex items-center border-b-2 px-1 pt-1 text-sm": !isMobile,
-      "block border-l-4 py-2 pr-4 pl-3 text-base": isMobile,
-      "border-brand text-gray-900": !!this.active && !isMobile,
-      "border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700":
-        !this.active && !isMobile,
-      "border-brand bg-brand-100/60 text-brand-dark": !!this.active && isMobile,
-      "border-transparent text-gray-500 hover:border-gray-300 hover:bg-gray-50 hover:text-gray-700":
-        !this.active && isMobile,
-    });
+    const classes = cls(
+      "text-black",
+      "flex",
+      "underline-offset-4",
+      { "items-center": true, "gap-2": true },
+      { underline: this.active, "no-underline": !this.active },
+    );
 
     return html`
       <a
+        class="${classes}"
         href="${this.to}"
         @click="${this.handleClick}"
         aria-current="${this.active ? "page" : "false"}"
-        class="${linkClasses}"
-      >${this.text}</a>
+      >
+        <vaadin-icon .icon="${this.icon}" class="hidden"></vaadin-icon>
+        <span class="font-normal uppercase">
+          ${this.text}
+        </span>
+      </a>
     `;
   }
 

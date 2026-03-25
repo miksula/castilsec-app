@@ -67,7 +67,7 @@ class LoginComponent extends useSupabase(useRouter(LitElement)) {
       <div class="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
         <div class="sm:mx-auto sm:w-full sm:max-w-sm flex flex-col items-center">
           <div
-            class="my-6 h-12 w-auto text-(--aura-accent-color)"
+            class="my-6 h-12 w-auto text-(--text-black)"
           >
             <svg viewBox="0 0 100 100" width="100%" height="100%">
               <path

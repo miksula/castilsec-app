@@ -1,18 +1,16 @@
 import "@vaadin/avatar";
-import "@vaadin/icon";
-import "@vaadin/icons";
 import { html, LitElement } from "lit";
 import { useRouter } from "@/lib/mixins/useRouter.ts";
 import { useSupabase } from "@/lib/mixins/useSupabase.ts";
 import Logo from "@/components/icons/LogoCastleSolidIcon.ts";
 
-// import "./nav-link.ts";
+import "./nav-link.ts";
 
 const navigationItems = [
-  { text: "Työpöytä", to: "/" },
-  { text: "Kohteet", to: "/kohteet" },
-  { text: "Tehtävät", to: "/tasks" },
-  { text: "Riskit", to: "/riskit" },
+  { text: "Työpöytä", to: "/", icon: "vaadin:dashboard" },
+  { text: "Kohteet", to: "/kohteet", icon: "vaadin:crosshairs" },
+  { text: "Tehtävät", to: "/tasks", icon: "vaadin:check" },
+  { text: "Riskit", to: "/riskit", icon: "vaadin:fire" },
 ];
 
 class AppNavigation extends useSupabase(useRouter(LitElement)) {
@@ -68,55 +66,48 @@ class AppNavigation extends useSupabase(useRouter(LitElement)) {
     return this.activePath === path || this.activePath.startsWith(`${path}/`);
   }
 
-  private renderNavLinks(mobile = false) {
+  private renderNavLinks() {
     return navigationItems.map((item) =>
       html`
         <nav-link
           text="${item.text}"
           to="${item.to}"
-          ?mobile="${mobile}"
+          icon="${item.icon}"
           ?active="${this.isItemActive(item.to)}"
         ></nav-link>
       `
     );
   }
 
+  protected override createRenderRoot() {
+    return this; // no shadow DOM
+  }
+
   override render() {
     return html`
-      <nav class="flex min-h-16 px-4 border-b bg-white">
+      <nav class="flex min-h-16 px-6">
         <div class="flex items-center justify-start gap-2 shrink-0">
-          <div class="h-7 w-7 text-(--aura-accent-color) opacity-80 mt-0">
+          <div class="h-7 w-7 text-(--color-black) opacity-80 mt-0">
             ${Logo()}
           </div>
           <div
-            class="grid w-29.5 text-left text-sm leading-tight text-(--aura-accent-color)"
+            class="grid w-29.5 text-left text-sm leading-tight text-(--color-black)"
           >
             <span class="truncate font-medium">CastilSec</span>
-            <span class="truncate text-xs">Tietoturva hallintaan</span>
+            <span class="truncate text-xs">Tietoturvan hallinta</span>
           </div>
         </div>
-        <div class="flex-1 flex items-center justify-start mx-4">
+        <div
+          class="flex-1 flex items-center justify-start mx-4"
+          style="visibility: hidden;"
+        >
           <section class="flex gap-5">
-            <span class="flex items-center gap-2">
-              <vaadin-icon icon="vaadin:dashboard"></vaadin-icon>
-              <span class="font-normal text-foreground uppercase">Työpöytä</span>
-            </span>
-            <span class="flex items-center gap-2">
-              <vaadin-icon icon="vaadin:crosshairs"></vaadin-icon>
-              <span class="font-normal text-foreground uppercase">Kohteet</span>
-            </span>
-            <span class="flex items-center gap-2">
-              <vaadin-icon icon="vaadin:check"></vaadin-icon>
-              <span class="font-normal text-foreground uppercase">Tehtävät</span>
-            </span>
-            <span class="flex items-center gap-2">
-              <vaadin-icon icon="vaadin:fire"></vaadin-icon>
-              <span class="font-normal text-foreground uppercase">Riskit</span>
-            </span>
+            ${this.renderNavLinks()}
           </section>
         </div>
         <div class="w-1/6 flex items-center justify-end">
-          <vaadin-avatar name="Mika Vallittu"></vaadin-avatar>
+          <vaadin-avatar name="Mika Vallittu" @click="${this
+            .handleLogout}"></vaadin-avatar>
         </div>
       </nav>
     `;
